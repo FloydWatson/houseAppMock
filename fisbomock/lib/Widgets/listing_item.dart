@@ -52,7 +52,7 @@ class ListingItem extends StatelessWidget {
             Stack(
               children: <Widget>[
                 FittedBox(
-                  child: Image.asset('assets/$imagePath'),
+                  child: Image.asset('$imagePath'),
                   fit: BoxFit.fill,
                 ),
                 Align(

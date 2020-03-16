@@ -49,7 +49,7 @@ class ListingProvider with ChangeNotifier {
             "photos": [
                 {
                     "photo-id": "123photo",
-                    "url": "123NorthcoteSt.jpg"
+                    "url": "assets/123NorthcoteSt.jpg"
                 }
             ],
             "listing-description": {
@@ -96,7 +96,7 @@ class ListingProvider with ChangeNotifier {
             "photos": [
                 {
                     "photo-id": "456photo",
-                    "url": "456NorthcoteSt.jpg"
+                    "url": "assets/456NorthcoteSt.jpg"
                 }
             ],
             "listing-description": {
@@ -143,7 +143,7 @@ class ListingProvider with ChangeNotifier {
             "photos": [
                 {
                     "photo-id": "502photo",
-                    "url": "502GroveRd.jpg"
+                    "url": "assets/502GroveRd.jpg"
                 }
             ],
             "listing-description": {
