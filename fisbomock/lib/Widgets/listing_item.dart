@@ -20,16 +20,25 @@ class ListingItem extends StatelessWidget {
   final String imagePath;
   final String heading;
 
-  ListingItem(this.id, this.streetNumber, this.streetName, this.city,
-      this.price, this.bed, this.bath, this.views, this.offers, this.imagePath, this.heading);
-  
+  ListingItem(
+      this.id,
+      this.streetNumber,
+      this.streetName,
+      this.city,
+      this.price,
+      this.bed,
+      this.bath,
+      this.views,
+      this.offers,
+      this.imagePath,
+      this.heading);
+
   @override
   Widget build(BuildContext context) {
     final listingProvider = Provider.of<ListingProvider>(context);
-        
-    FlutterMoneyFormatter fmf = FlutterMoneyFormatter(
-      amount: double.parse('$price')
-    );
+
+    FlutterMoneyFormatter fmf =
+        FlutterMoneyFormatter(amount: double.parse('$price'));
     return Card(
       margin: EdgeInsets.symmetric(
         horizontal: 15,
@@ -123,10 +132,21 @@ class ListingItem extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text('$heading', style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600
-                         ),),
+                        child: Text(
+                          '$heading',
+                          style: GoogleFonts.lato( // posible heading style. will move to theme
+                            textStyle: TextStyle(
+                              letterSpacing: .25,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+
+                          // TextStyle(
+                          //   fontSize: 20,
+                          //   fontWeight: FontWeight.w600
+                          //  ),
+                        ),
                       ),
                     ),
                     Align(
@@ -141,15 +161,14 @@ class ListingItem extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Row(
-                            children: <Widget>[
-                             
-                              Text(
-                                '${fmf.output.symbolOnLeft}',
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.black),
-                              ),
-                            ],
-                          ),
+                          children: <Widget>[
+                            Text(
+                              '${fmf.output.symbolOnLeft}',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Divider(
@@ -199,8 +218,8 @@ class ListingItem extends StatelessWidget {
                         ),
                         Spacer(),
                         IconButton(
-                          icon:  FaIcon(FontAwesomeIcons.star),
-                          onPressed: () { },
+                          icon: FaIcon(FontAwesomeIcons.star),
+                          onPressed: () {},
                           color: Colors.yellow,
                         ),
                       ],
