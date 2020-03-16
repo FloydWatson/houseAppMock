@@ -34,6 +34,7 @@ class Listing {
   int offSiteParking;
   int views;
   int offers;
+  bool isFavourite;
   List<Photos> photos;
   ListingDescription listingDescription;
 
@@ -50,6 +51,7 @@ class Listing {
       this.offSiteParking,
       this.views,
       this.offers,
+      this.isFavourite,
       this.photos,
       this.listingDescription});
 
@@ -67,6 +69,7 @@ class Listing {
     offSiteParking = json['off-site-parking'];
     views = json['views'];
     offers = json['offers'];
+    isFavourite = json['is-favourite'];
     if (json['photos'] != null) {
       photos = new List<Photos>();
       json['photos'].forEach((v) {
@@ -94,6 +97,7 @@ class Listing {
     data['off-site-parking'] = this.offSiteParking;
     data['views'] = this.views;
     data['offers'] = this.offers;
+    data['is-favourite'] = this.isFavourite;
     if (this.photos != null) {
       data['photos'] = this.photos.map((v) => v.toJson()).toList();
     }
