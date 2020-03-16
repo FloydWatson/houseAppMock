@@ -20,6 +20,11 @@ class ListingProvider with ChangeNotifier {
     return _listings.firstWhere((a) => a.listingId == id);
   }
 
+  int photoCount(id) {
+    Listing listing = findById(id);
+    return listing.photos == [] ? 0 : listing.photos.length;
+  }
+
   
 
   void setListings() {
@@ -48,8 +53,16 @@ class ListingProvider with ChangeNotifier {
             "offers": 2,
             "photos": [
                 {
-                    "photo-id": "123photo",
+                    "photo-id": "123photo1",
                     "url": "assets/123NorthcoteSt.jpg"
+                },
+                {
+                    "photo-id": "123photo2",
+                    "url": "assets/Kitchen.jpg"
+                },
+                {
+                    "photo-id": "123photo3",
+                    "url": "assets/Bathroom.jpg"
                 }
             ],
             "listing-description": {
