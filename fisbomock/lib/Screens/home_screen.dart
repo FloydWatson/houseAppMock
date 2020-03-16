@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
             children: <Widget>[
               RaisedButton(
                 onPressed: () {
+                  listingProvider.setListings();
                   Navigator.of(context).pushNamed(ListingListScreen.routeName);
                 },
                 padding: const EdgeInsets.all(8.0),
