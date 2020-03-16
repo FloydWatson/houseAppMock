@@ -15,6 +15,8 @@ class ListingListScreen extends StatelessWidget {
     // get registration provider
     final listingProvider = Provider.of<ListingProvider>(context);
 
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -61,21 +63,24 @@ class ListingListScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                child: ListView.builder(
-                  itemCount: listingProvider.itemCount,
-                  itemBuilder: (ctx, i) => ListingItem(
-                    listingProvider.listings[i].listingId,
-                    listingProvider.listings[i].address.streetNumber,
-                    listingProvider.listings[i].address.streetName,
-                    listingProvider.listings[i].address.city,
-                    listingProvider.listings[i].price,
-                    listingProvider.listings[i].bed,
-                    listingProvider.listings[i].bath,
-                    listingProvider.listings[i].views,
-                    listingProvider.listings[i].offers,
-                    listingProvider.listings[i].photos[0].url,
-                    listingProvider
-                        .listings[i].listingDescription.descriptionHeader,
+                child: SizedBox(
+                  height: height,
+                                  child: ListView.builder(
+                    itemCount: listingProvider.itemCount,
+                    itemBuilder: (ctx, i) => ListingItem(
+                      listingProvider.listings[i].listingId,
+                      listingProvider.listings[i].address.streetNumber,
+                      listingProvider.listings[i].address.streetName,
+                      listingProvider.listings[i].address.city,
+                      listingProvider.listings[i].price,
+                      listingProvider.listings[i].bed,
+                      listingProvider.listings[i].bath,
+                      listingProvider.listings[i].views,
+                      listingProvider.listings[i].offers,
+                      listingProvider.listings[i].photos[0].url,
+                      listingProvider
+                          .listings[i].listingDescription.descriptionHeader,
+                    ),
                   ),
                 ),
               ),
@@ -87,14 +92,3 @@ class ListingListScreen extends StatelessWidget {
   }
 }
 
-class SearchAppBar extends StatefulWidget {
-  @override
-  _SearchAppBarState createState() => _SearchAppBarState();
-}
-
-class _SearchAppBarState extends State<SearchAppBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
