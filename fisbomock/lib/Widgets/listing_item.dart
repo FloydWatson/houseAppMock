@@ -175,6 +175,7 @@ class ListingItem extends StatelessWidget {
                     color: Colors.black,
                   ),
                   Row(
+                    
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
