@@ -6,6 +6,9 @@ import '../Models/listingGet.dart';
 
 class ListingProvider with ChangeNotifier {
   List<Listing> _listings = [];
+
+  String activeUrl = "";
+  int index = 0;
   
 
   List<Listing> get listings {
@@ -25,6 +28,17 @@ class ListingProvider with ChangeNotifier {
     return listing.photos == [] ? 0 : listing.photos.length;
   }
 
+  void getNewPhoto(id){
+    Listing listing = findById(id);
+    log('Hit');
+     if(index > photoCount(id) - 1){
+       index = 0;
+       log('index > count');
+    }
+    activeUrl = listing.photos[index].url;
+     index++;
+    notifyListeners();
+  }
   
 
   void setListings() {

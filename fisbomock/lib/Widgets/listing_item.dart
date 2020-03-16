@@ -44,7 +44,7 @@ class ListingItem extends StatelessWidget {
     FlutterMoneyFormatter fmf =
         FlutterMoneyFormatter(amount: double.parse('$price'));
     return GestureDetector(
-      onTap: () { log('TAP');  Navigator.of(context).pushNamed(ListingScreen.routeName, arguments: ListingScreenArguments(id));} ,
+      onTap: () { log('TAP'); listingProvider.getNewPhoto(id); Navigator.of(context).pushNamed(ListingScreen.routeName, arguments: ListingScreenArguments(id));} ,
           child: Card(
         
         margin: EdgeInsets.symmetric(

@@ -34,11 +34,9 @@ class ListingDisplay extends StatelessWidget {
 
     return Container(
 
-        child: ListView.builder(
-          itemCount: listingProvider.photoCount(id),
-          itemBuilder: (ctx, i) => ListingImage(listing.photos[i].url),
+        child:  ListingImage(listing.listingId),
 
-        ),
+        
     );
   }
 }
