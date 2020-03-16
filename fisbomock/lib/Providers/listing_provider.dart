@@ -58,6 +58,12 @@ class ListingProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateFavourite(id){
+    Listing listing = findById(id);
+    listing.isFavourite = !listing.isFavourite;
+    notifyListeners();
+  }
+
   void setListings() {
     final res = json.encode({
       "listings-list": [
@@ -81,6 +87,7 @@ class ListingProvider with ChangeNotifier {
           "off-site-parking": 4,
           "views": 55,
           "offers": 2,
+          "is-favourite": false,
           "photos": [
             {"photo-id": "123photo1", "url": "assets/123NorthcoteSt.jpg"},
             {"photo-id": "123photo2", "url": "assets/Kitchen.jpg"},
@@ -127,6 +134,7 @@ class ListingProvider with ChangeNotifier {
           "off-site-parking": 3,
           "views": 25,
           "offers": 1,
+          "is-favourite": false,
           "photos": [
             {"photo-id": "456photo", "url": "assets/456NorthcoteSt.jpg"}
           ],
@@ -171,6 +179,7 @@ class ListingProvider with ChangeNotifier {
           "off-site-parking": 0,
           "views": 75,
           "offers": 0,
+          "is-favourite": false,
           "photos": [
             {"photo-id": "502photo", "url": "assets/502GroveRd.jpg"}
           ],

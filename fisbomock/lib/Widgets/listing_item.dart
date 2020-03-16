@@ -23,19 +23,22 @@ class ListingItem extends StatelessWidget {
   final int offers;
   final String imagePath;
   final String heading;
+  final bool isFavourite;
 
   ListingItem(
-      this.id,
-      this.streetNumber,
-      this.streetName,
-      this.city,
-      this.price,
-      this.bed,
-      this.bath,
-      this.views,
-      this.offers,
-      this.imagePath,
-      this.heading);
+    this.id,
+    this.streetNumber,
+    this.streetName,
+    this.city,
+    this.price,
+    this.bed,
+    this.bath,
+    this.views,
+    this.offers,
+    this.imagePath,
+    this.heading,
+    this.isFavourite,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -230,8 +233,8 @@ class ListingItem extends StatelessWidget {
                         ),
                         Spacer(),
                         IconButton(
-                          icon: FaIcon(FontAwesomeIcons.star),
-                          onPressed: () {},
+                          icon: FaIcon(isFavourite ?  FontAwesomeIcons.solidStar : FontAwesomeIcons.star),
+                          onPressed: () { listingProvider.updateFavourite(id); },
                           color: Colors.yellow,
                         ),
                       ],
