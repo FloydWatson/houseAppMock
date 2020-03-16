@@ -80,6 +80,7 @@ class ListingListScreen extends StatelessWidget {
                       listingProvider.listings[i].photos[0].url,
                       listingProvider
                           .listings[i].listingDescription.descriptionHeader,
+                          listingProvider.listings[i].isFavourite,
                     ),
                   ),
                 ),

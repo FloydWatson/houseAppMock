@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 // import screens like this
 import './Screens/home_screen.dart';
 import './Screens/listing_list_screen.dart';
+import './Screens/listing_screen.dart';
+
 import './Providers/listing_provider.dart';
 
 void main() async {
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
         routes: {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           ListingListScreen.routeName: (ctx) => ListingListScreen(),
+          ListingScreen.routeName: (ctx) => ListingScreen(),
         },
       ),
     );
