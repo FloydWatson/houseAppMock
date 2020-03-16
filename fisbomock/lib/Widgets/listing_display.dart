@@ -33,10 +33,7 @@ class ListingDisplay extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return Container(
-
-        child:  ListingImage(listing.listingId),
-
-        
+      child: ListingImage(listing.listingId),
     );
   }
 }

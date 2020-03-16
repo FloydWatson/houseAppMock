@@ -44,9 +44,13 @@ class ListingItem extends StatelessWidget {
     FlutterMoneyFormatter fmf =
         FlutterMoneyFormatter(amount: double.parse('$price'));
     return GestureDetector(
-      onTap: () { log('TAP'); listingProvider.getNewPhoto(id); Navigator.of(context).pushNamed(ListingScreen.routeName, arguments: ListingScreenArguments(id));} ,
-          child: Card(
-        
+      onTap: () {
+        log('TAP');
+        listingProvider.setActivePhoto(id);
+        Navigator.of(context).pushNamed(ListingScreen.routeName,
+            arguments: ListingScreenArguments(id));
+      },
+      child: Card(
         margin: EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 4,
@@ -172,7 +176,8 @@ class ListingItem extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               '${fmf.output.symbolOnLeft}',
-                              style: TextStyle(fontSize: 16, color: Colors.black),
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.black),
                             ),
                           ],
                         ),
@@ -182,7 +187,6 @@ class ListingItem extends StatelessWidget {
                       color: Colors.black,
                     ),
                     Row(
-                      
                       children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
@@ -198,8 +202,8 @@ class ListingItem extends StatelessWidget {
                               FaIcon(FontAwesomeIcons.bed),
                               Text(
                                 ' $bed',
-                                style:
-                                    TextStyle(fontSize: 12, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black),
                               ),
                             ],
                           ),
@@ -218,8 +222,8 @@ class ListingItem extends StatelessWidget {
                               FaIcon(FontAwesomeIcons.bath),
                               Text(
                                 ' $bath',
-                                style:
-                                    TextStyle(fontSize: 12, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black),
                               ),
                             ],
                           ),
@@ -242,4 +246,3 @@ class ListingItem extends StatelessWidget {
     );
   }
 }
-

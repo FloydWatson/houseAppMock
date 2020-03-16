@@ -7,7 +7,6 @@ import '../Providers/listing_provider.dart';
 import '../Widgets/listing_screen_arguments.dart';
 import '../Widgets/listing_display.dart';
 
-
 class ListingScreen extends StatelessWidget {
   // route
   static const routeName = '/listing';
@@ -17,8 +16,8 @@ class ListingScreen extends StatelessWidget {
     // get registration provider
     final listingProvider = Provider.of<ListingProvider>(context);
 
-    final ListingScreenArguments args = ModalRoute.of(context).settings.arguments;
-
+    final ListingScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -61,12 +60,9 @@ class ListingScreen extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 30),
-          child: ListingDisplay(args.id)
-        ),
+            padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 30),
+            child: ListingDisplay(args.id)),
       ),
     );
   }
 }
-
-
