@@ -14,11 +14,6 @@ class ListingImage extends StatelessWidget {
     final listingProvider = Provider.of<ListingProvider>(context);
 
     return Card(
-      margin: EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 4,
-      ),
-      elevation: 5,
       child: Padding(
         padding: EdgeInsets.all(2),
         child: Column(
