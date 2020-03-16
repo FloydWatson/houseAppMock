@@ -6,6 +6,7 @@ import '../Models/listingGet.dart';
 
 class ListingProvider with ChangeNotifier {
   List<Listing> _listings = [];
+  
 
   List<Listing> get listings {
     return [..._listings];
@@ -18,6 +19,8 @@ class ListingProvider with ChangeNotifier {
   Listing findById(String id) {
     return _listings.firstWhere((a) => a.listingId == id);
   }
+
+  
 
   void setListings() {
     final res = json.encode({
@@ -46,7 +49,7 @@ class ListingProvider with ChangeNotifier {
             "photos": [
                 {
                     "photo-id": "123photo",
-                    "url": "../../assets/HousePhotos/123NorthcoteSt.jpg"
+                    "url": "123NorthcoteSt.jpg"
                 }
             ],
             "listing-description": {
@@ -93,7 +96,7 @@ class ListingProvider with ChangeNotifier {
             "photos": [
                 {
                     "photo-id": "456photo",
-                    "url": "../../assets/HousePhotos/456NorthcoteSt.jpg"
+                    "url": "456NorthcoteSt.jpg"
                 }
             ],
             "listing-description": {
@@ -140,7 +143,7 @@ class ListingProvider with ChangeNotifier {
             "photos": [
                 {
                     "photo-id": "502photo",
-                    "url": "../../assets/HousePhotos/502GroveRd.jpg"
+                    "url": "502GroveRd.jpg"
                 }
             ],
             "listing-description": {
