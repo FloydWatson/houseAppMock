@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Providers/listing_provider.dart';
+
 import '../Widgets/listing_screen_arguments.dart';
+import '../Widgets/listing_display.dart';
+
 
 class ListingScreen extends StatelessWidget {
   // route
@@ -15,6 +18,7 @@ class ListingScreen extends StatelessWidget {
     final listingProvider = Provider.of<ListingProvider>(context);
 
     final ListingScreenArguments args = ModalRoute.of(context).settings.arguments;
+
 
     return Scaffold(
       appBar: AppBar(
@@ -58,12 +62,7 @@ class ListingScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 30),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[Text('${args.id}')],
-            ),
-          ),
+          child: ListingDisplay(args.id)
         ),
       ),
     );
