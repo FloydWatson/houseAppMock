@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fisbomock/Providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 import '../Providers/listing_provider.dart';
 import '../Screens/listing_screen.dart';
+import '../Models/listingGet.dart';
 import '../Widgets/listing_screen_arguments.dart';
 
 class ListingItem extends StatelessWidget {
@@ -40,6 +42,9 @@ class ListingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listingProvider = Provider.of<ListingProvider>(context);
+    Listing aListing = listingProvider.findById(id);
+    final userProvider = Provider.of<UserProvider>(context);
+    
 
     FlutterMoneyFormatter fmf =
         FlutterMoneyFormatter(amount: double.parse('$price'));
@@ -227,7 +232,9 @@ class ListingItem extends StatelessWidget {
                         Spacer(),
                         IconButton(
                           icon: FaIcon(FontAwesomeIcons.star),
-                          onPressed: () {},
+                          onPressed: () {
+                            userProvider.addFavourite(1, aListing);
+                          },
                           color: Colors.yellow,
                         ),
                       ],

@@ -5,8 +5,10 @@ import 'package:provider/provider.dart';
 import './Screens/home_screen.dart';
 import './Screens/listing_list_screen.dart';
 import './Screens/listing_screen.dart';
+import './Screens/favourites_screen.dart';
 
 import './Providers/listing_provider.dart';
+import './Providers/user_provider.dart';
 
 
 void main() async {
@@ -21,6 +23,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: ListingProvider(),
         ),
+        ChangeNotifierProvider.value(
+          value: UserProvider(),
+        ),
+        
       ],
       child: MaterialApp(
         title: "FISBO",
@@ -37,6 +43,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.routeName: (ctx) => HomeScreen(),
           ListingListScreen.routeName: (ctx) => ListingListScreen(),
           ListingScreen.routeName: (ctx) => ListingScreen(),
+          FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
         },
       ),
     );

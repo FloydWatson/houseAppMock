@@ -3,6 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Providers/listing_provider.dart';
+import '../Providers/user_provider.dart';
+
+import '../Screens/favourites_screen.dart';
+
 import '../Widgets/listing_screen_arguments.dart';
 
 class ListingScreen extends StatelessWidget {
@@ -13,6 +17,7 @@ class ListingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // get registration provider
     final listingProvider = Provider.of<ListingProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
 
     final ListingScreenArguments args = ModalRoute.of(context).settings.arguments;
 
@@ -32,10 +37,27 @@ class ListingScreen extends StatelessWidget {
               shape: CircleBorder(),
             ),
             child: IconButton(
+              icon: Icon(Icons.star),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.of(context).pushNamed(FavouritesScreen.routeName);
+              },
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Ink(
+            decoration: const ShapeDecoration(
+              color: Colors.lightBlue,
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
               icon: Icon(Icons.menu),
               color: Colors.white,
               onPressed: () {
                 listingProvider.setListings();
+                userProvider.setUser();
               },
             ),
           ),
