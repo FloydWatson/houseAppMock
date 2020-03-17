@@ -75,6 +75,7 @@ class UserProvider with ChangeNotifier {
     } else{
       user.favourites.add(aListing);
     }
+    notifyListeners();
 
   }
 }
