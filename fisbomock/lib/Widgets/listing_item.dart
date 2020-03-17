@@ -233,7 +233,7 @@ class ListingItem extends StatelessWidget {
                         IconButton(
                           icon: FaIcon(FontAwesomeIcons.star),
                           onPressed: () {
-                            userProvider.addFavourite(1, aListing);
+                            userProvider.toggleFavourite(1, aListing);
                           },
                           color: Colors.yellow,
                         ),

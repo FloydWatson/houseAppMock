@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
-
 import '../Models/listingGet.dart';
 import '../Models/UserGet.dart';
 
 import 'dart:convert';
 import 'dart:developer';
 
-
 class UserProvider with ChangeNotifier {
- List<User> _users = [];
-  
+  List<User> _users = [];
 
   List<User> get users {
     return [..._users];
   }
 
-  List<Listing> getUserFavourites(int userId){
+  List<Listing> getUserFavourites(int userId) {
     User user = findById(userId);
     return [...user.favourites.toList()];
   }
@@ -25,7 +22,7 @@ class UserProvider with ChangeNotifier {
     return _users == [] ? 0 : _users.length;
   }
 
-  int userFavouritesItemCount(int userId){
+  int userFavouritesItemCount(int userId) {
     User user = findById(userId);
     return user.favourites.length;
   }
@@ -34,29 +31,28 @@ class UserProvider with ChangeNotifier {
     return _users.firstWhere((a) => a.userId == id);
   }
 
-  void setUser(){
+  void setUser() {
     final res = json.encode({
-    "user-list": [
+      "user-list": [
         {
-            "user-id": 1,
-            "username": "user1",
-            "password":"pass",
-            "email":"email.mail.com",
-            "phone-number":"027356489",
-            "first-name": "Harry",
-            "last-name" :"Potter",
-            "address": {
-                "street-number": "123",
-                "street-name": "Northcote St",
-                "suburb": "Frimley",
-                "city": "Hastings",
-                "region": "Hawkes Bay",
-                "country": "New Zealand"
-        
-            },
-            "favourites":[]
+          "user-id": 1,
+          "username": "user1",
+          "password": "pass",
+          "email": "email.mail.com",
+          "phone-number": "027356489",
+          "first-name": "Harry",
+          "last-name": "Potter",
+          "address": {
+            "street-number": "123",
+            "street-name": "Northcote St",
+            "suburb": "Frimley",
+            "city": "Hastings",
+            "region": "Hawkes Bay",
+            "country": "New Zealand"
+          },
+          "favourites": []
         }
-    ]
+      ]
     });
     Users users = Users.fromJson(json.decode(res));
 
@@ -65,9 +61,20 @@ class UserProvider with ChangeNotifier {
     _users = [...users.userList];
   }
 
-  void addFavourite(int userId, Listing aListing){
+  void toggleFavourite(int userId, Listing aListing) {
     User user = findById(userId);
-    user.favourites.add(aListing);
-  }
+    if (user.favourites.isNotEmpty) {
+      try{
+        Listing matching =
+          user.favourites.firstWhere((a) => a.listingId == aListing.listingId);
+          user.favourites.remove(aListing);
+      } catch(e){
+        user.favourites.add(aListing);
+      }
+      
+    } else{
+      user.favourites.add(aListing);
+    }
 
+  }
 }
