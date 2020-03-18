@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 import '../Providers/listing_provider.dart';
+import '../Providers/user_provider.dart';
 
 import '../Models/listingGet.dart';
 
@@ -23,6 +24,7 @@ class ListingDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listingProvider = Provider.of<ListingProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
 
     final Listing listing = listingProvider.findById(id);
     final Address address = listing.address;
@@ -64,7 +66,7 @@ class ListingDisplay extends StatelessWidget {
                   ),
                   Spacer(),
                   IconButton(
-                    icon: FaIcon(listing.isFavourite
+                    icon: FaIcon(userProvider.seeIfFav(1, listing)
                         ? FontAwesomeIcons.solidStar
                         : FontAwesomeIcons.star),
                     onPressed: () {

@@ -31,9 +31,9 @@ class UserProvider with ChangeNotifier {
     return _users.firstWhere((a) => a.userId == id);
   }
 
-  bool seeIfFav(listing){
+  bool seeIfFav(int userId,Listing aListing){
     // fix ----------------------------------------------------------------------------------------------
-    return _users[0].favourites.contains(listing) ? true : false;
+    return getUserFavourites(userId).contains(aListing) ? true : false;
   }
 
   void setUser() {
