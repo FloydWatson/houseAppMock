@@ -111,6 +111,7 @@ class FavouritesScreen extends StatelessWidget {
                             favs[i].offers,
                             favs[i].photos[0].url,
                             favs[i].listingDescription.descriptionHeader,
+                            // clear this ---------------------------------------------------------------------
                             true
                           ),
                         ),
