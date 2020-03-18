@@ -1,26 +1,25 @@
 import 'package:fisbomock/Providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../Providers/listing_provider.dart';
 import '../Providers/user_provider.dart';
 
+import '../Models/listingGet.dart';
+
 import '../Widgets/listing_item.dart';
 
-import '../Screens/favourites_screen.dart';
-
-class ListingListScreen extends StatelessWidget {
+class FavouritesScreen extends StatelessWidget {
   // route
-  static const routeName = '/listing-list';
+  static const routeName = '/favourites';
 
   @override
   Widget build(BuildContext context) {
     // get registration provider
     final listingProvider = Provider.of<ListingProvider>(context);
-     final userProvider = Provider.of<UserProvider>(context);
-
+    final userProvider = Provider.of<UserProvider>(context);
     double height = MediaQuery.of(context).size.height;
+    List<Listing> favs = userProvider.getUserFavourites(1);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,40 +77,48 @@ class ListingListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: SizedBox(
-                  height: height,
-                                  child: ListView.builder(
-                    itemCount: listingProvider.itemCount,
-                    itemBuilder: (ctx, i) => ListingItem(
-                      listingProvider.listings[i].listingId,
-                      listingProvider.listings[i].address.streetNumber,
-                      listingProvider.listings[i].address.streetName,
-                      listingProvider.listings[i].address.city,
-                      listingProvider.listings[i].price,
-                      listingProvider.listings[i].bed,
-                      listingProvider.listings[i].bath,
-                      listingProvider.listings[i].views,
-                      listingProvider.listings[i].offers,
-                      listingProvider.listings[i].photos[0].url,
-                      listingProvider
-                          .listings[i].listingDescription.descriptionHeader,
-                          listingProvider.listings[i].isFavourite,
+      body: favs.isEmpty
+          ? Center(
+              child: Text('You have no favourites yet, start adding some!'),
+            )
+          : Center(
+              child: Padding(
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Favourites", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20, ),),
                     ),
-                  ),
+                    
+                    Divider(),
+                    Expanded(
+                      child: SizedBox(
+                        height: height,
+                        child: ListView.builder(
+                          itemCount: userProvider.userFavouritesItemCount(1),
+                          itemBuilder: (ctx, i) => ListingItem(
+                            favs[i].listingId,
+                            favs[i].address.streetNumber,
+                            favs[i].address.streetName,
+                            favs[i].address.city,
+                            favs[i].price,
+                            favs[i].bed,
+                            favs[i].bath,
+                            favs[i].views,
+                            favs[i].offers,
+                            favs[i].photos[0].url,
+                            favs[i].listingDescription.descriptionHeader,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
-

@@ -1,8 +1,10 @@
+import 'package:fisbomock/Screens/favourites_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import '../Providers/listing_provider.dart';
+import '../Providers/user_provider.dart';
 
 import './listing_list_screen.dart';
 
@@ -14,6 +16,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // get registration provider
     final listingProvider = Provider.of<ListingProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,10 +35,27 @@ class HomeScreen extends StatelessWidget {
               shape: CircleBorder(),
             ),
             child: IconButton(
+              icon: Icon(Icons.star),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.of(context).pushNamed(FavouritesScreen.routeName);
+              },
+            ),
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Ink(
+            decoration: const ShapeDecoration(
+              color: Colors.lightBlue,
+              shape: CircleBorder(),
+            ),
+            child: IconButton(
               icon: Icon(Icons.menu),
               color: Colors.white,
               onPressed: () {
                 listingProvider.setListings();
+                userProvider.setUser();
               },
             ),
           ),
