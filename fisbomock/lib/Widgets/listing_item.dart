@@ -238,7 +238,7 @@ class ListingItem extends StatelessWidget {
                         ),
                         Spacer(),
                         IconButton(
-                          icon: FaIcon(FontAwesomeIcons.star),
+                          icon: FaIcon(userProvider.seeIfFav(aListing) ? FontAwesomeIcons.solidStar : FontAwesomeIcons.star),
                           onPressed: () {
                             userProvider.toggleFavourite(1, aListing);
                           },
