@@ -6,6 +6,7 @@ import './Screens/home_screen.dart';
 import './Screens/listing_list_screen.dart';
 import './Screens/listing_screen.dart';
 import './Screens/favourites_screen.dart';
+import './Screens/my_properties_screen.dart';
 
 import './Providers/listing_provider.dart';
 import './Providers/user_provider.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
           ListingListScreen.routeName: (ctx) => ListingListScreen(),
           ListingScreen.routeName: (ctx) => ListingScreen(),
           FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
+          MyPropertiesScreen.routeName: (ctx) => MyPropertiesScreen(),
         },
       ),
     );

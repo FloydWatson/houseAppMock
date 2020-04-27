@@ -1,24 +1,23 @@
-import 'package:fisbomock/Screens/favourites_screen.dart';
-import 'package:fisbomock/Screens/my_properties_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 import '../Providers/listing_provider.dart';
 import '../Providers/user_provider.dart';
 
-import './listing_list_screen.dart';
-import './my_properties_screen.dart';
+import '../Screens/favourites_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  // route
-  static const routeName = '/home';
+import '../Widgets/user_listing_item.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
+class MyPropertiesScreen extends StatelessWidget {
+  static const routeName = '/my_properties';
   @override
   Widget build(BuildContext context) {
-    // get registration provider
     final listingProvider = Provider.of<ListingProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +28,6 @@ class HomeScreen extends StatelessWidget {
           fit: BoxFit.fitWidth,
           scale: 3,
         ),
-
         actions: <Widget>[
           Ink(
             decoration: const ShapeDecoration(
@@ -79,21 +77,43 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 30),
+          padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              RaisedButton(
-                onPressed: () {
-                  listingProvider.setListings();
-                  Navigator.of(context).pushNamed(MyPropertiesScreen.routeName);
-                },
-                padding: const EdgeInsets.all(8.0),
-                textColor: Theme.of(context).primaryTextTheme.button.color,
-                color: Theme.of(context).buttonColor,
-                child: Text(
-                  'Listings',
-                  style: GoogleFonts.lato(),
+              Text(
+                'My Properties',
+                style: GoogleFonts.lato(
+                  // posible heading style. will move to theme
+                  textStyle: TextStyle(
+                    letterSpacing: .25,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 10),
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: height,
+                  width: width,
+                  child: ListView.builder(
+                    itemCount: listingProvider.itemCount,
+                    itemBuilder: (ctx, i) => UserListingItem(
+                      listingProvider.listings[i].listingId,
+                      listingProvider.listings[i].address.streetNumber,
+                      listingProvider.listings[i].address.streetName,
+                      listingProvider.listings[i].address.city,
+                      listingProvider.listings[i].price,
+                      listingProvider.listings[i].views,
+                      listingProvider.listings[i].offers,
+                      listingProvider.listings[i].photos[0].url,
+                      listingProvider
+                          .listings[i].listingDescription.descriptionHeader,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -101,17 +121,5 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class SearchAppBar extends StatefulWidget {
-  @override
-  _SearchAppBarState createState() => _SearchAppBarState();
-}
-
-class _SearchAppBarState extends State<SearchAppBar> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
