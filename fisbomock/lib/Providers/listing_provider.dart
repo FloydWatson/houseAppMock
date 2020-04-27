@@ -14,6 +14,10 @@ class ListingProvider with ChangeNotifier {
     return [..._listings];
   }
 
+  void addListing(Listing aListing){
+    _listings.add(aListing);
+  }
+
   int get itemCount {
     return _listings == [] ? 0 : _listings.length;
   }
