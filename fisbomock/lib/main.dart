@@ -1,3 +1,4 @@
+import 'package:fisbomock/Screens/add_property_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           ListingScreen.routeName: (ctx) => ListingScreen(),
           FavouritesScreen.routeName: (ctx) => FavouritesScreen(),
           MyPropertiesScreen.routeName: (ctx) => MyPropertiesScreen(),
+          AddPropertyScreen.routeName: (ctx) => AddPropertyScreen(),
         },
       ),
     );

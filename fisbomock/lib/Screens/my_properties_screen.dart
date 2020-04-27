@@ -1,3 +1,4 @@
+import 'package:fisbomock/Screens/add_property_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -83,45 +84,68 @@ class MyPropertiesScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'My Properties',
-                style: GoogleFonts.lato(
-                  // posible heading style. will move to theme
-                  textStyle: TextStyle(
-                    letterSpacing: .25,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: height,
-                  width: width,
-                  child: ListView.builder(
-                    itemCount: userlist.length,
-                    itemBuilder: (ctx, i) => UserListingItem(
-                      userlist[i].listingId,
-                      userlist[i].address.streetNumber,
-                      userlist[i].address.streetName,
-                      userlist[i].address.city,
-                      userlist[i].price,
-                      userlist[i].views,
-                      userlist[i].offers,
-                      userlist[i].photos[0].url,
-                      userlist[i].listingDescription.descriptionHeader,
+          child: Stack(
+                      children:<Widget>[ Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'My Properties',
+                  style: GoogleFonts.lato(
+                    // posible heading style. will move to theme
+                    textStyle: TextStyle(
+                      letterSpacing: .25,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 5,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: height,
+                    width: width,
+                    child: ListView.builder(
+                      itemCount: userlist.length,
+                      itemBuilder: (ctx, i) => UserListingItem(
+                        userlist[i].listingId,
+                        userlist[i].address.streetNumber,
+                        userlist[i].address.streetName,
+                        userlist[i].address.city,
+                        userlist[i].price,
+                        userlist[i].views,
+                        userlist[i].offers,
+                        userlist[i].photos[0].url,
+                        userlist[i].listingDescription.descriptionHeader,
+                      ),
+                    ),
+                  ),
+                ),
+                
+                
+              ],
+              
+            ),
+            Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: 10, right: 30, top: 10, bottom: 10),
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: Colors.blue,
+                            size: 62,
+                          ),
+                          onPressed: () {
+                            //add a new property
+                            Navigator.of(context).pushNamed(AddPropertyScreen.routeName);
+                          }),
+                    ))
+                      ],
           ),
+                      
         ),
       ),
     );
