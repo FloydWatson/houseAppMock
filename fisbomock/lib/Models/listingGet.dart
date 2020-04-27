@@ -23,6 +23,7 @@ class Listings {
 
 class Listing {
   String listingId;
+  int ownerId;
   Address address;
   int price;
   int bed;
@@ -40,6 +41,7 @@ class Listing {
 
   Listing(
       {this.listingId,
+      this.ownerId,
       this.address,
       this.price,
       this.bed,
@@ -57,6 +59,7 @@ class Listing {
 
   Listing.fromJson(Map<String, dynamic> json) {
     listingId = json['listing-id'];
+    ownerId = json['owner-id'];
     address =
         json['address'] != null ? new Address.fromJson(json['address']) : null;
     price = json['price'];
@@ -84,6 +87,7 @@ class Listing {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['listing-id'] = this.listingId;
+    data['owner-id'] = this.ownerId;
     if (this.address != null) {
       data['address'] = this.address.toJson();
     }

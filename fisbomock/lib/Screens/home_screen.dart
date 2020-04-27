@@ -86,6 +86,7 @@ class HomeScreen extends StatelessWidget {
               RaisedButton(
                 onPressed: () {
                   listingProvider.setListings();
+                  userProvider.setUser();
                   Navigator.of(context).pushNamed(MyPropertiesScreen.routeName);
                 },
                 padding: const EdgeInsets.all(8.0),

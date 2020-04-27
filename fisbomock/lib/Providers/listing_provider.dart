@@ -27,6 +27,10 @@ class ListingProvider with ChangeNotifier {
     return listing.photos == [] ? 0 : listing.photos.length;
   }
 
+  List<Listing> getUserListings(int userId){
+    return _listings.where((a) => a.ownerId == userId).toList();
+  }
+
   void setActivePhoto(id) {
     Listing listing = findById(id);
     activeUrl = listing.photos[0].url;
@@ -69,6 +73,7 @@ class ListingProvider with ChangeNotifier {
       "listings-list": [
         {
           "listing-id": "123",
+          "owner-id" : 1,
           "address": {
             "street-number": "123",
             "street-name": "Northcote St",
@@ -116,6 +121,7 @@ class ListingProvider with ChangeNotifier {
         },
         {
           "listing-id": "456",
+          "owner-id": 2,
           "address": {
             "street-number": "456",
             "street-name": "Northcote St",
@@ -161,6 +167,7 @@ class ListingProvider with ChangeNotifier {
         },
         {
           "listing-id": "502",
+          'owner-id': 1,
           "address": {
             "street-number": "502",
             "street-name": "Grove Rd",

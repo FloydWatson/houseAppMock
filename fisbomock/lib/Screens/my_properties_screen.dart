@@ -10,14 +10,19 @@ import '../Widgets/user_listing_item.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Models/listingGet.dart';
+
 class MyPropertiesScreen extends StatelessWidget {
   static const routeName = '/my_properties';
+  int user = 1;
   @override
   Widget build(BuildContext context) {
     final listingProvider = Provider.of<ListingProvider>(context);
     final userProvider = Provider.of<UserProvider>(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
+    List<Listing> userlist = listingProvider.getUserListings(user);
 
     return Scaffold(
       appBar: AppBar(
@@ -92,26 +97,25 @@ class MyPropertiesScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 10),
+              SizedBox(
+                width: 5,
               ),
               Expanded(
                 child: SizedBox(
                   height: height,
                   width: width,
                   child: ListView.builder(
-                    itemCount: listingProvider.itemCount,
+                    itemCount: userlist.length,
                     itemBuilder: (ctx, i) => UserListingItem(
-                      listingProvider.listings[i].listingId,
-                      listingProvider.listings[i].address.streetNumber,
-                      listingProvider.listings[i].address.streetName,
-                      listingProvider.listings[i].address.city,
-                      listingProvider.listings[i].price,
-                      listingProvider.listings[i].views,
-                      listingProvider.listings[i].offers,
-                      listingProvider.listings[i].photos[0].url,
-                      listingProvider
-                          .listings[i].listingDescription.descriptionHeader,
+                      userlist[i].listingId,
+                      userlist[i].address.streetNumber,
+                      userlist[i].address.streetName,
+                      userlist[i].address.city,
+                      userlist[i].price,
+                      userlist[i].views,
+                      userlist[i].offers,
+                      userlist[i].photos[0].url,
+                      userlist[i].listingDescription.descriptionHeader,
                     ),
                   ),
                 ),

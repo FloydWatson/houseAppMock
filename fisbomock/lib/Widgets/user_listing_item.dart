@@ -8,6 +8,10 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
+import '../Widgets/listing_screen_arguments.dart';
+import '../Screens/listing_screen.dart';
+
+
 import '../Providers/listing_provider.dart';
 import '../Models/listingGet.dart';
 
@@ -37,14 +41,17 @@ class UserListingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final listingProvider = Provider.of<ListingProvider>(context);
-    Listing aListing = listingProvider.findById(id);
-    final userProvider = Provider.of<UserProvider>(context);
-    double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-
     FlutterMoneyFormatter fmf =
         FlutterMoneyFormatter(amount: double.parse('$price'));
-    return Card(
+    return GestureDetector(
+      onTap: () {
+        log('TAP');
+        listingProvider.setActivePhoto(id);
+        Navigator.of(context).pushNamed(ListingScreen.routeName,
+            arguments: ListingScreenArguments(id));
+      },
+      child: Card(
       margin: EdgeInsets.symmetric(
         horizontal: 15,
         vertical: 4,
@@ -136,7 +143,7 @@ class UserListingItem extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 12),
                                 ),
-                                Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0)),
+                                SizedBox(width: 10,),
                                 FaIcon(
                                   FontAwesomeIcons.tags,
                                   color: Colors.black,
@@ -160,6 +167,7 @@ class UserListingItem extends StatelessWidget {
             ),
           
         ),
+      ),
       ),
     );
   }
