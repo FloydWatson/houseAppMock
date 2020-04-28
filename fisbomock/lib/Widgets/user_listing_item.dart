@@ -10,6 +10,7 @@ import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 import '../Widgets/listing_screen_arguments.dart';
 import '../Screens/listing_screen.dart';
+import '../Screens/add_property_screen.dart';
 
 import '../Providers/listing_provider.dart';
 import '../Models/listingGet.dart';
@@ -52,7 +53,7 @@ class UserListingItem extends StatelessWidget {
       },
       child: Card(
         margin: EdgeInsets.symmetric(
-          horizontal: 15,
+          horizontal: 10,
           vertical: 4,
         ),
         elevation: 5,
@@ -74,99 +75,111 @@ class UserListingItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            child: Text(
-                              '$heading',
-                              style: GoogleFonts.lato(
-                                // posible heading style. will move to theme
-                                textStyle: TextStyle(
-                                  letterSpacing: .25,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                Column(
+                  //mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Text(
+                            '$heading',
+                            style: GoogleFonts.lato(
+                              // posible heading style. will move to theme
+                              textStyle: TextStyle(
+                                letterSpacing: .25,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            child: Text(
-                              '$streetNumber' +
-                                  ' ' +
-                                  '$streetName' +
-                                  ' ' +
-                                  '$city',
+                        ),
+                        //Align(alignment: Alignment.topRight, child: IconButton(icon: Icon(Icons.edit, color: Colors.blue), onPressed: null),),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Text(
+                            '$streetNumber' +
+                                ' ' +
+                                '$streetName' +
+                                ' ' +
+                                '$city',
+                            style: GoogleFonts.lato(
+                              // posible heading style. will move to theme
+                              textStyle: TextStyle(
+                                letterSpacing: .25,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Row(children: <Widget>[
+                            Text(
+                              'Price: ' + '${fmf.output.symbolOnLeft}',
                               style: GoogleFonts.lato(
                                 // posible heading style. will move to theme
                                 textStyle: TextStyle(
                                   letterSpacing: .25,
                                   fontSize: 12,
-                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                            child: Row(children: <Widget>[
-                              Text(
-                                'Price: ' + '${fmf.output.symbolOnLeft}',
-                                style: GoogleFonts.lato(
-                                  // posible heading style. will move to theme
-                                  textStyle: TextStyle(
-                                    letterSpacing: .25,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.binoculars,
-                                color: Colors.black,
-                                size: 12,
-                              ),
-                              Text(
-                                ' $views',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              FaIcon(
-                                FontAwesomeIcons.tags,
-                                color: Colors.black,
-                                size: 12,
-                              ),
-                              Text(
-                                ' $offers',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                            ]),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FaIcon(
+                              FontAwesomeIcons.binoculars,
+                              color: Colors.black,
+                              size: 12,
+                            ),
+                            Text(
+                              ' $views',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            FaIcon(
+                              FontAwesomeIcons.tags,
+                              color: Colors.black,
+                              size: 12,
+                            ),
+                            Text(
+                              ' $offers',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ]),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
+                Column(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                          icon: Icon(Icons.edit, color: Colors.blue), iconSize: 30,
+                          onPressed: (){
+                            Navigator.of(context).pushNamed(AddPropertyScreen.routeName, arguments: id);
+                          }),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

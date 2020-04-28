@@ -35,9 +35,27 @@ class AddPropertyScreen extends StatelessWidget {
   final _chattelHeaderFocusNode = FocusNode();
   final _chattelBodyFocusNode = FocusNode();
 
-  Listing _aListing = Listing(
-      listingId: Random().nextInt(1000000).toString(),
-      ownerId: 0,
+  
+
+  
+
+  int userId = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
+    final listingProvider = Provider.of<ListingProvider>(context);
+
+    String existingListing = "";
+    if(ModalRoute.of(context).settings.arguments != null){
+      existingListing = ModalRoute.of(context).settings.arguments;
+    }
+    
+
+    Listing _aListing = Listing(
+      listingId: existingListing.isEmpty ? Random().nextInt(1000000).toString() : existingListing, //if edited keeps the existing id
+      ownerId: userId,
       address: Address(
           streetNumber: "0",
           streetName: "",
@@ -71,14 +89,6 @@ class AddPropertyScreen extends StatelessWidget {
       chattelHeader: "",
       chattelBody: "");
 
-  int userId = 1;
-
-  @override
-  Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
-    final listingProvider = Provider.of<ListingProvider>(context);
-
     void _saveForm() {
       final isValid = _form.currentState.validate();
       if (!isValid) {
@@ -86,13 +96,16 @@ class AddPropertyScreen extends StatelessWidget {
         return;
       }
       _form.currentState.save();
-
-      //add final property
-      listingProvider.addListing(_aListing);
-      dev.log(listingProvider.listings.toString());
-      dev.log(_aListing.listingDescription.descriptionHeader);
-
-      Navigator.of(context).pop();
+      if(existingListing.isNotEmpty){
+        //edited property
+        listingProvider.updateListing(_aListing);
+        dev.log(listingProvider.listings[2].price.toString());
+      } else{
+        //add property
+        listingProvider.addListing(_aListing);
+      }
+        dev.log(existingListing.toString());
+        Navigator.of(context).pop();
     }
 
     return Scaffold(
