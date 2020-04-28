@@ -35,10 +35,6 @@ class AddPropertyScreen extends StatelessWidget {
   final _chattelHeaderFocusNode = FocusNode();
   final _chattelBodyFocusNode = FocusNode();
 
-  
-
-  
-
   int userId = 1;
 
   @override
@@ -47,65 +43,67 @@ class AddPropertyScreen extends StatelessWidget {
 
     final listingProvider = Provider.of<ListingProvider>(context);
 
+    Listing _editListing;
+
     String existingListing = "";
-    if(ModalRoute.of(context).settings.arguments != null){
+    if (ModalRoute.of(context).settings.arguments != null) {
       existingListing = ModalRoute.of(context).settings.arguments;
+      _editListing = listingProvider.findById(existingListing);
     }
-    
 
     Listing _aListing = Listing(
-      listingId: existingListing.isEmpty ? Random().nextInt(1000000).toString() : existingListing, //if edited keeps the existing id
-      ownerId: userId,
-      address: Address(
-          streetNumber: "0",
-          streetName: "",
-          suburb: "",
-          city: "",
-          region: "",
-          country: ""),
-      price: 0,
-      bed: 0,
-      bath: 0,
-      lounge: 0,
-      study: 0,
-      dining: 0,
-      garageParking: 0,
-      offSiteParking: 0,
-      views: 0,
-      offers: 0,
-      isFavourite: false,
-      listingDescription: ListingDescription(
-          descriptionHeader: "",
-          descriptionBody: "",
-          features: List<Features>(),
-          chattels: List<Chattels>()),
-      photos: List<Photos>());
-  Features _feature = Features(
-      featureId: Random().nextInt(1000000).toString(),
-      featureHeader: "",
-      featureBody: "");
-  Chattels _chattel = Chattels(
-      chattelId: Random().nextInt(1000000).toString(),
-      chattelHeader: "",
-      chattelBody: "");
+        listingId: existingListing.isEmpty
+            ? Random().nextInt(1000000).toString()
+            : existingListing, //if edited keeps the existing id
+        ownerId: userId,
+        address: Address(
+            streetNumber: "0",
+            streetName: "",
+            suburb: "",
+            city: "",
+            region: "",
+            country: ""),
+        price: 0,
+        bed: 0,
+        bath: 0,
+        lounge: 0,
+        study: 0,
+        dining: 0,
+        garageParking: 0,
+        offSiteParking: 0,
+        views: 0,
+        offers: 0,
+        isFavourite: false,
+        listingDescription: ListingDescription(
+            descriptionHeader: "",
+            descriptionBody: "",
+            features: List<Features>(),
+            chattels: List<Chattels>()),
+        photos: List<Photos>());
+    Features _feature = Features(
+        featureId: Random().nextInt(1000000).toString(),
+        featureHeader: "",
+        featureBody: "");
+    Chattels _chattel = Chattels(
+        chattelId: Random().nextInt(1000000).toString(),
+        chattelHeader: "",
+        chattelBody: "");
 
     void _saveForm() {
       final isValid = _form.currentState.validate();
       if (!isValid) {
-        dev.log("not valid");
         return;
       }
       _form.currentState.save();
-      if(existingListing.isNotEmpty){
+      if (existingListing.isNotEmpty) {
         //edited property
-        listingProvider.updateListing(_aListing);
-        dev.log(listingProvider.listings[2].price.toString());
-      } else{
+        listingProvider.updateListing(_editListing);
+      } else {
         //add property
         listingProvider.addListing(_aListing);
       }
-        dev.log(existingListing.toString());
-        Navigator.of(context).pop();
+
+      Navigator.of(context).pop();
     }
 
     return Scaffold(
@@ -195,6 +193,10 @@ class AddPropertyScreen extends StatelessWidget {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing
+                                          .listingDescription.descriptionHeader
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Title'),
                                   textInputAction: TextInputAction.next,
@@ -212,13 +214,14 @@ class AddPropertyScreen extends StatelessWidget {
                                   onSaved: (val) {
                                     _aListing.listingDescription
                                         .descriptionHeader = val;
-
-                                    dev.log(_aListing
-                                        .listingDescription.descriptionHeader);
-                                    // change to new listing :(
+                                    _editListing.listingDescription
+                                        .descriptionHeader = val;
                                   },
                                 ),
                                 TextFormField(
+                                    initialValue: existingListing.isNotEmpty
+                                        ? _editListing.address.streetNumber
+                                        : "",
                                     decoration: InputDecoration(
                                         labelText: 'Street Number'),
                                     keyboardType: TextInputType.number,
@@ -242,8 +245,12 @@ class AddPropertyScreen extends StatelessWidget {
                                     },
                                     onSaved: (val) {
                                       _aListing.address.streetNumber = val;
+                                      _editListing.address.streetNumber = val;
                                     }),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.address.streetName
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Street Name'),
                                   focusNode: _streetNameFocusNode,
@@ -260,9 +267,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.address.streetName = val;
+                                    _editListing.address.streetName = val;
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.address.suburb
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Suburb'),
                                   focusNode: _suburbFocusNode,
@@ -279,9 +290,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.address.suburb = val;
+                                    _editListing.address.suburb = val;
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.address.city
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'City'),
                                   focusNode: _cityFocusNode,
@@ -298,9 +313,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.address.city = val;
+                                    _editListing.address.city = val;
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.address.region
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Region'),
                                   focusNode: _regionFocusNode,
@@ -317,9 +336,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.address.region = val;
+                                    _editListing.address.region = val;
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.address.country
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Country'),
                                   focusNode: _countryFocusNode,
@@ -336,9 +359,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.address.country = val;
+                                    _editListing.address.country = val;
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.price.toString()
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Price'),
                                   keyboardType: TextInputType.number,
@@ -361,9 +388,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.price = int.parse(val);
+                                    _editListing.price = int.parse(val);
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.bed.toString()
+                                      : "",
                                   decoration: InputDecoration(
                                       labelText: 'Number of Bedrooms'),
                                   keyboardType: TextInputType.number,
@@ -384,9 +415,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.bed = int.parse(val);
+                                    _editListing.bed = int.parse(val);
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.bath.toString()
+                                      : "",
                                   decoration: InputDecoration(
                                       labelText: 'Number of Bathrooms'),
                                   keyboardType: TextInputType.number,
@@ -407,9 +442,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.bath = int.parse(val);
+                                    _editListing.bath = int.parse(val);
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.lounge.toString()
+                                      : "",
                                   decoration: InputDecoration(
                                       labelText: 'Number of Lounges'),
                                   keyboardType: TextInputType.number,
@@ -429,9 +468,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.lounge = int.parse(val);
+                                    _editListing.lounge = int.parse(val);
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.study.toString()
+                                      : "",
                                   decoration: InputDecoration(
                                       labelText: 'Number of studies'),
                                   keyboardType: TextInputType.number,
@@ -451,9 +494,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.study = int.parse(val);
+                                    _editListing.study = int.parse(val);
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.garageParking.toString()
+                                      : "",
                                   decoration: InputDecoration(
                                       labelText: 'Garage Parking Spots'),
                                   keyboardType: TextInputType.number,
@@ -474,9 +521,13 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.garageParking = int.parse(val);
+                                    _editListing.garageParking = int.parse(val);
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.offSiteParking.toString()
+                                      : "",
                                   decoration: InputDecoration(
                                       labelText: 'Off Street Parking Spots'),
                                   keyboardType: TextInputType.number,
@@ -497,10 +548,16 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.offSiteParking = int.parse(val);
+                                    _editListing.offSiteParking =
+                                        int.parse(val);
                                   },
                                 ),
 
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.listingDescription
+                                          .features[0].featureHeader
+                                      : "", //probabaly cause issues
                                   decoration: InputDecoration(
                                       labelText: 'Feature Header'),
                                   focusNode: _featureHeaderFocusNode,
@@ -517,9 +574,14 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _feature.featureHeader = val;
+                                    _feature.featureHeader = val;
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.listingDescription
+                                          .features[0].featureBody
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Feature'),
                                   focusNode: _featureBodyFocusNode,
@@ -539,6 +601,10 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.listingDescription
+                                          .chattels[0].chattelHeader
+                                      : "",
                                   decoration: InputDecoration(
                                       labelText: 'Chattel Header'),
                                   focusNode: _chattelHeaderFocusNode,
@@ -558,6 +624,10 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                 ),
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.listingDescription
+                                          .chattels[0].chattelBody
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Chattel'),
                                   focusNode: _chattelBodyFocusNode,
@@ -578,6 +648,10 @@ class AddPropertyScreen extends StatelessWidget {
                                 ),
 
                                 TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing
+                                          .listingDescription.descriptionBody
+                                      : "",
                                   decoration:
                                       InputDecoration(labelText: 'Description'),
                                   maxLines: 15,
@@ -595,6 +669,8 @@ class AddPropertyScreen extends StatelessWidget {
                                   },
                                   onSaved: (val) {
                                     _aListing.listingDescription
+                                        .descriptionBody = val;
+                                    _editListing.listingDescription
                                         .descriptionBody = val;
                                   },
                                 ),
@@ -682,10 +758,10 @@ class AddPropertyScreen extends StatelessWidget {
                 onPressed: () {
                   //adds feature details to features
                   _aListing.listingDescription.features.add(_feature);
+                  _editListing.listingDescription.features.add(_feature);
                   //adds chattel details to chattels
                   _aListing.listingDescription.chattels.add(_chattel);
-                  //add owner id
-                  _aListing.ownerId = userId;
+                  _editListing.listingDescription.chattels.add(_chattel);
 
                   _aListing.photos.add(Photos(
                       photoId: Random().nextInt(1000000).toString(),

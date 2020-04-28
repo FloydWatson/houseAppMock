@@ -19,9 +19,9 @@ class ListingProvider with ChangeNotifier {
   }
 
   void updateListing(Listing aListing){
-    log("------------------");
+    
     final index = _listings.indexWhere((list) => list.listingId == aListing.listingId);
-    log(index.toString());
+    
     if (index >= 0) {
       _listings[index] = aListing;
       log('updated');
