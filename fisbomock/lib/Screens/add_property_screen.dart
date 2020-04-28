@@ -27,6 +27,7 @@ class AddPropertyScreen extends StatelessWidget {
   final _bathFocusNode = FocusNode();
   final _loungeFocusNode = FocusNode();
   final _studyFocusNode = FocusNode();
+  final _dinningFocusNode = FocusNode();
   final _garageParkingFocusNode = FocusNode();
   final _offStreetParkingFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
@@ -52,9 +53,7 @@ class AddPropertyScreen extends StatelessWidget {
     }
 
     Listing _aListing = Listing(
-        listingId: existingListing.isEmpty
-            ? Random().nextInt(1000000).toString()
-            : existingListing, //if edited keeps the existing id
+        listingId: Random().nextInt(1000000).toString(),
         ownerId: userId,
         address: Address(
             streetNumber: "0",
@@ -175,9 +174,16 @@ class AddPropertyScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 5,
+              ),
               Column(
                 children: <Widget>[
                   Card(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                     elevation: 5,
                     margin: EdgeInsets.symmetric(
                       horizontal: 15,
@@ -197,8 +203,9 @@ class AddPropertyScreen extends StatelessWidget {
                                       ? _editListing
                                           .listingDescription.descriptionHeader
                                       : "",
-                                  decoration:
-                                      InputDecoration(labelText: 'Title'),
+                                  decoration: InputDecoration(
+                                    labelText: 'Title',
+                                  ),
                                   textInputAction: TextInputAction.next,
                                   onFieldSubmitted: (_) {
                                     FocusScope.of(context).requestFocus(
@@ -212,10 +219,13 @@ class AddPropertyScreen extends StatelessWidget {
                                     }
                                   },
                                   onSaved: (val) {
-                                    _aListing.listingDescription
-                                        .descriptionHeader = val;
-                                    _editListing.listingDescription
-                                        .descriptionHeader = val;
+                                    if (existingListing.isEmpty) {
+                                      _aListing.listingDescription
+                                          .descriptionHeader = val;
+                                    } else {
+                                      _editListing.listingDescription
+                                          .descriptionHeader = val;
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -244,8 +254,11 @@ class AddPropertyScreen extends StatelessWidget {
                                       return null;
                                     },
                                     onSaved: (val) {
-                                      _aListing.address.streetNumber = val;
-                                      _editListing.address.streetNumber = val;
+                                      if (existingListing.isEmpty) {
+                                        _aListing.address.streetNumber = val;
+                                      } else {
+                                        _editListing.address.streetNumber = val;
+                                      }
                                     }),
                                 TextFormField(
                                   initialValue: existingListing.isNotEmpty
@@ -266,8 +279,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.address.streetName = val;
-                                    _editListing.address.streetName = val;
+                                    if (existingListing.isEmpty) {
+                                      _aListing.address.streetName = val;
+                                    } else {
+                                      _editListing.address.streetName = val;
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -289,8 +305,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.address.suburb = val;
-                                    _editListing.address.suburb = val;
+                                    if (existingListing.isEmpty) {
+                                      _aListing.address.suburb = val;
+                                    } else {
+                                      _editListing.address.suburb = val;
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -312,8 +331,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.address.city = val;
-                                    _editListing.address.city = val;
+                                    if (existingListing.isEmpty) {
+                                      _aListing.address.city = val;
+                                    } else {
+                                      _editListing.address.city = val;
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -335,8 +357,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.address.region = val;
-                                    _editListing.address.region = val;
+                                    if (existingListing.isEmpty) {
+                                      _aListing.address.region = val;
+                                    } else {
+                                      _editListing.address.region = val;
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -358,8 +383,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.address.country = val;
-                                    _editListing.address.country = val;
+                                    if (existingListing.isEmpty) {
+                                      _aListing.address.country = val;
+                                    } else {
+                                      _editListing.address.country = val;
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -387,8 +415,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.price = int.parse(val);
-                                    _editListing.price = int.parse(val);
+                                    if (existingListing.isEmpty) {
+                                      _aListing.price = int.parse(val);
+                                    } else {
+                                      _editListing.price = int.parse(val);
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -414,8 +445,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.bed = int.parse(val);
-                                    _editListing.bed = int.parse(val);
+                                    if (existingListing.isEmpty) {
+                                      _aListing.bed = int.parse(val);
+                                    } else {
+                                      _editListing.bed = int.parse(val);
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -441,8 +475,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.bath = int.parse(val);
-                                    _editListing.bath = int.parse(val);
+                                    if (existingListing.isEmpty) {
+                                      _aListing.bath = int.parse(val);
+                                    } else {
+                                      _editListing.bath = int.parse(val);
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -467,8 +504,11 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.lounge = int.parse(val);
-                                    _editListing.lounge = int.parse(val);
+                                    if (existingListing.isEmpty) {
+                                      _aListing.lounge = int.parse(val);
+                                    } else {
+                                      _editListing.lounge = int.parse(val);
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -476,12 +516,12 @@ class AddPropertyScreen extends StatelessWidget {
                                       ? _editListing.study.toString()
                                       : "",
                                   decoration: InputDecoration(
-                                      labelText: 'Number of studies'),
+                                      labelText: 'Number of study\'s'),
                                   keyboardType: TextInputType.number,
                                   focusNode: _studyFocusNode,
                                   onFieldSubmitted: (_) {
                                     FocusScope.of(context).requestFocus(
-                                        _garageParkingFocusNode); //after submitted goes to the price field
+                                        _dinningFocusNode); //after submitted goes to the price field
                                   },
                                   validator: (val) {
                                     if (val.isEmpty) {
@@ -493,8 +533,40 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.study = int.parse(val);
-                                    _editListing.study = int.parse(val);
+                                    if (existingListing.isEmpty) {
+                                      _aListing.study = int.parse(val);
+                                    } else {
+                                      _editListing.study = int.parse(val);
+                                    }
+                                  },
+                                ),
+                                TextFormField(
+                                  initialValue: existingListing.isNotEmpty
+                                      ? _editListing.study.toString()
+                                      : "",
+                                  decoration: InputDecoration(
+                                      labelText: 'Number of Dinning rooms'),
+                                  keyboardType: TextInputType.number,
+                                  focusNode: _dinningFocusNode,
+                                  onFieldSubmitted: (_) {
+                                    FocusScope.of(context)
+                                        .requestFocus(_garageParkingFocusNode);
+                                  },
+                                  validator: (val) {
+                                    if (val.isEmpty) {
+                                      return 'Please provide a value';
+                                    }
+                                    if (double.tryParse(val) == null) {
+                                      return 'Please provide a vaild number';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (val) {
+                                    if (existingListing.isEmpty) {
+                                      _aListing.dining = int.parse(val);
+                                    } else {
+                                      _editListing.dining = int.parse(val);
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -520,8 +592,12 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.garageParking = int.parse(val);
-                                    _editListing.garageParking = int.parse(val);
+                                    if (existingListing.isEmpty) {
+                                      _aListing.garageParking = int.parse(val);
+                                    } else {
+                                      _editListing.garageParking =
+                                          int.parse(val);
+                                    }
                                   },
                                 ),
                                 TextFormField(
@@ -547,9 +623,12 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.offSiteParking = int.parse(val);
-                                    _editListing.offSiteParking =
-                                        int.parse(val);
+                                    if (existingListing.isEmpty) {
+                                      _aListing.offSiteParking = int.parse(val);
+                                    } else {
+                                      _editListing.offSiteParking =
+                                          int.parse(val);
+                                    }
                                   },
                                 ),
 
@@ -668,10 +747,13 @@ class AddPropertyScreen extends StatelessWidget {
                                     return null;
                                   },
                                   onSaved: (val) {
-                                    _aListing.listingDescription
-                                        .descriptionBody = val;
-                                    _editListing.listingDescription
-                                        .descriptionBody = val;
+                                    if (existingListing.isEmpty) {
+                                      _aListing.listingDescription
+                                          .descriptionBody = val;
+                                    } else {
+                                      _editListing.listingDescription
+                                          .descriptionBody = val;
+                                    }
                                   },
                                 ),
                                 // Row(
@@ -739,35 +821,51 @@ class AddPropertyScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 2,
               ),
-              RaisedButton(
-                child: Text(
-                  'Submit',
-                  style: GoogleFonts.lato(
-                    // posible heading style. will move to theme
-                    textStyle: TextStyle(
-                      color: Colors.black,
-                      letterSpacing: .25,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+              Container(
+                width: double.infinity,
+                padding:
+                    EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+                child: RaisedButton(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Text(
+                    'List Property',
+                    style: GoogleFonts.lato(
+                      // posible heading style. will move to theme
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        letterSpacing: .25,
+                        fontSize: 18.5,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                color: Colors.blue,
-                onPressed: () {
-                  //adds feature details to features
-                  _aListing.listingDescription.features.add(_feature);
-                  _editListing.listingDescription.features.add(_feature);
-                  //adds chattel details to chattels
-                  _aListing.listingDescription.chattels.add(_chattel);
-                  _editListing.listingDescription.chattels.add(_chattel);
+                  color: Colors.lightBlue[100],
+                  onPressed: () {
+                    //adds feature details to features
+                    if (existingListing.isEmpty) {
+                      _aListing.listingDescription.features.add(_feature);
+                    } else {
+                      _editListing.listingDescription.features.add(_feature);
+                    }
 
-                  _aListing.photos.add(Photos(
-                      photoId: Random().nextInt(1000000).toString(),
-                      url: 'assets/502GroveRd.jpg'));
-                  _saveForm();
-                },
+                    //adds chattel details to chattels
+                    if (existingListing.isEmpty) {
+                      _aListing.listingDescription.chattels.add(_chattel);
+                    } else {
+                      _editListing.listingDescription.chattels.add(_chattel);
+                    }
+
+                    _aListing.photos.add(Photos(
+                        photoId: Random().nextInt(1000000).toString(),
+                        url: 'assets/502GroveRd.jpg'));
+                    _saveForm();
+                  },
+                ),
               ),
             ],
           ),

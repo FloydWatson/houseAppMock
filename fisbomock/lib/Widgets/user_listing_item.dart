@@ -62,6 +62,8 @@ class UserListingItem extends StatelessWidget {
           child: SizedBox(
             width: width,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -76,7 +78,6 @@ class UserListingItem extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  //mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Row(
@@ -87,7 +88,6 @@ class UserListingItem extends StatelessWidget {
                           child: Text(
                             '$heading',
                             style: GoogleFonts.lato(
-                              // posible heading style. will move to theme
                               textStyle: TextStyle(
                                 letterSpacing: .25,
                                 fontSize: 14,
@@ -96,7 +96,6 @@ class UserListingItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        //Align(alignment: Alignment.topRight, child: IconButton(icon: Icon(Icons.edit, color: Colors.blue), onPressed: null),),
                       ],
                     ),
                     Row(
@@ -111,7 +110,6 @@ class UserListingItem extends StatelessWidget {
                                 ' ' +
                                 '$city',
                             style: GoogleFonts.lato(
-                              // posible heading style. will move to theme
                               textStyle: TextStyle(
                                 letterSpacing: .25,
                                 fontSize: 12,
@@ -129,12 +127,11 @@ class UserListingItem extends StatelessWidget {
                           margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
                           child: Row(children: <Widget>[
                             Text(
-                              'Price: ' + '${fmf.output.symbolOnLeft}',
+                              '${fmf.output.symbolOnLeft}',
                               style: GoogleFonts.lato(
-                                // posible heading style. will move to theme
                                 textStyle: TextStyle(
                                   letterSpacing: .25,
-                                  fontSize: 12,
+                                  fontSize: 13,
                                 ),
                               ),
                             ),
@@ -148,7 +145,7 @@ class UserListingItem extends StatelessWidget {
                             ),
                             Text(
                               ' $views',
-                              style: TextStyle(fontSize: 12),
+                              style: TextStyle(fontSize: 13),
                             ),
                             SizedBox(
                               width: 10,
@@ -160,7 +157,7 @@ class UserListingItem extends StatelessWidget {
                             ),
                             Text(
                               ' $offers',
-                              style: TextStyle(fontSize: 12),
+                              style: TextStyle(fontSize: 13),
                             ),
                           ]),
                         ),
@@ -170,14 +167,14 @@ class UserListingItem extends StatelessWidget {
                 ),
                 Column(
                   children: <Widget>[
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          icon: Icon(Icons.edit, color: Colors.blue), iconSize: 30,
-                          onPressed: (){
-                            Navigator.of(context).pushNamed(AddPropertyScreen.routeName, arguments: id);
-                          }),
-                    ),
+                    IconButton(
+                        icon: Icon(Icons.edit, color: Colors.blue),
+                        iconSize: 30,
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                              AddPropertyScreen.routeName,
+                              arguments: id);
+                        }),
                   ],
                 )
               ],
